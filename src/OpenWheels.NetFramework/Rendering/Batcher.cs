@@ -499,11 +499,11 @@ namespace OpenWheels.Rendering
 
         #region Circle
 
-        private const float LeftAngle = (float) Math.PI;
-        private const float TopAngle = (float) (1.5 * Math.PI);
-        private const float RightStartAngle = 0;
-        private const float RightEndAngle = (float) (2 * Math.PI);
-        private const float BotAngle = (float) (.5 * Math.PI);
+        public const float LeftAngle = (float) Math.PI;
+        public const float TopAngle = (float) (1.5 * Math.PI);
+        public const float RightStartAngle = 0;
+        public const float RightEndAngle = (float) (2 * Math.PI);
+        public const float BotAngle = (float) (.5 * Math.PI);
 
         /// <summary>
         /// Draw the outline of a circle segment.
@@ -516,6 +516,11 @@ namespace OpenWheels.Rendering
         public void DrawCircle(Vector2 center, float radius, Color color, int sides, float lineWidth = 1)
         {
             DrawCircleSegment(center, radius, RightStartAngle, RightEndAngle, color, sides, lineWidth);
+        }
+
+        public float GetCircleStepSize(float start, float end, int sides)
+        {
+            return (end - start) / sides;
         }
 
         /// <summary>
