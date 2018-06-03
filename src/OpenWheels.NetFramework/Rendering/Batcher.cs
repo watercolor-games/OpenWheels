@@ -57,6 +57,9 @@ namespace OpenWheels.Rendering
         public const int DefaultMaxVertices = 2048;
         public const int DefaultMaxIndices = 4096;
 
+        public const int IndexBufferIncrease = 128;
+        public const int VertexBufferIncrease = 64;
+
         /// <summary>
         /// The renderer that actually executes the draw calls.
         /// </summary>
@@ -71,8 +74,8 @@ namespace OpenWheels.Rendering
             }
         }
 
-        private readonly Vertex[] _vb;
-        private readonly int[] _ib;
+        private Vertex[] _vb;
+        private int[] _ib;
 
         private int _nextToDraw;
         private int _indicesInBatch;
@@ -746,6 +749,8 @@ namespace OpenWheels.Rendering
         {
             TransformVertexPosition(ref v, ref _transformMatrix);
             var i = _verticesSubmitted;
+            if (i == _vb.Length)
+                Array.Resize(ref _vb, _vb.Length + VertexBufferIncrease);
             _vb[i] = v;
             _verticesSubmitted++;
             return i;
@@ -754,6 +759,8 @@ namespace OpenWheels.Rendering
         private void AddIndex(int index)
         {
             var i = _nextToDraw + _indicesInBatch;
+            if (i == _ib.Length)
+                Array.Resize(ref _ib, _ib.Length + IndexBufferIncrease);
             _ib[i] = index;
             _indicesInBatch++;
         }
