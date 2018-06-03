@@ -5,6 +5,17 @@
     /// </summary>
     public struct GraphicsState
     {
+        public static bool operator ==(GraphicsState a, GraphicsState b)
+        {
+            return (a.Texture == b.Texture && a.BlendState == b.BlendState && a.SamplerState == b.SamplerState && a.ScissorRect == b.ScissorRect && a.UseScissorRect == b.UseScissorRect);
+        }
+
+        public static bool operator !=(GraphicsState a, GraphicsState b)
+        {
+            return !(a.Texture == b.Texture && a.BlendState == b.BlendState && a.SamplerState == b.SamplerState && a.ScissorRect == b.ScissorRect && a.UseScissorRect == b.UseScissorRect);
+        }
+
+
         /// <summary>
         /// The texture to render.
         /// </summary>
